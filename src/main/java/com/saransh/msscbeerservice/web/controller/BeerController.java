@@ -3,6 +3,7 @@ package com.saransh.msscbeerservice.web.controller;
 import com.saransh.msscbeerservice.web.model.BeerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveBeer(@RequestBody BeerDTO beerDTO) {
+    public ResponseEntity<?> saveBeer(@Validated @RequestBody BeerDTO beerDTO) {
         // TODO - impl
         return new ResponseEntity<>(
                 BeerDTO.builder().build(),
@@ -35,7 +36,7 @@ public class BeerController {
     @PutMapping("/{beerId}")
     public ResponseEntity<?> updateBeerById(
             @PathVariable UUID beerId,
-            @RequestBody BeerDTO beerDTO
+            @Validated @RequestBody BeerDTO beerDTO
     ) {
         // TODO - impl
         return new ResponseEntity<>(
