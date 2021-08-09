@@ -1,6 +1,8 @@
 package com.saransh.msscbeerservice.web.controller;
 
+import com.saransh.msscbeerservice.service.BeerService;
 import com.saransh.msscbeerservice.web.model.BeerDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,24 +13,25 @@ import java.util.UUID;
 /**
  * Created by CryptoSingh1337 on 7/24/2021
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
 
+    private final BeerService beerService;
+
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId) {
-        // TODO - impl
         return new ResponseEntity<>(
-                BeerDTO.builder().build(),
+                beerService.getBeerById(beerId),
                 HttpStatus.OK
         );
     }
 
     @PostMapping
     public ResponseEntity<?> saveBeer(@Validated @RequestBody BeerDTO beerDTO) {
-        // TODO - impl
         return new ResponseEntity<>(
-                BeerDTO.builder().build(),
+                beerService.saveBeer(beerDTO),
                 HttpStatus.CREATED
         );
     }
@@ -38,7 +41,7 @@ public class BeerController {
             @PathVariable UUID beerId,
             @Validated @RequestBody BeerDTO beerDTO
     ) {
-        // TODO - impl
+        beerService.updateBeer(beerId, beerDTO);
         return new ResponseEntity<>(
                 HttpStatus.OK
         );
